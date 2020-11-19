@@ -34,3 +34,75 @@ def sendMail(title, URL, original, new):
         msg = f"Subject: {subject}\n\n{body}"
         server.sendmail(sender_email, recipient, msg)
         print("Sent email")
+
+
+def takealot_data(url):
+    '''
+    This function extract the data from Takealot website
+    args:
+    url: Webpage link
+    '''
+    driver.get(url)
+    timeout = 30
+    try:
+        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.CLASS_NAME, "product-title")))
+    except TimeoutException:
+        driver.quit()
+    
+    page_source = driver.page_source
+    
+    soup = BeautifulSoup(page_source, 'lxml')
+    
+    price = soup.find('span', class_='currency plus currency-module_currency_29IIm').get_text()
+    title = soup.find('div', class_='product-title').get_text().strip()
+
+    price = float(price[1:].strip())
+    return price, title
+
+
+def makro_data(url):
+    '''
+    This function extract the data from Makro website
+    args:
+    url: Webpage link
+    '''
+    driver.get(url)
+    timeout = 30
+    try:
+        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.CLASS_NAME, "price")))
+    except TimeoutException:
+        driver.quit()
+    
+    page_source = driver.page_source
+    soup = BeautifulSoup(page_source, 'lxml')
+    price = soup.find('p', class_='price').get_text()
+    title = soup.find('b', class_='code mak-typo__large mak-typo__h1-md').get_text().strip()
+    price = price.strip().strip('00').replace(',','')
+    price = float(price[1:].strip())
+    
+    return price, title
+
+
+def game_data(url):
+    '''
+    This function extract the data from Makro website
+    args:
+    url: Webpage link
+    '''
+    driver.get(url)
+    timeout = 30
+    try:
+        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.CLASS_NAME, "pdp_price")))
+        
+    except TimeoutException:
+        driver.quit()
+    
+    page_source = driver.page_source
+    soup = BeautifulSoup(page_source, 'lxml')
+    
+    price = soup.find('span', class_='pdp_price').get_text()
+    # title = soup.find('div', class_='product-title').get_text()
+    title = soup.find('div', class_='name').get_text().strip()
+    price = price.strip().strip('.00').replace(',','')
+    price = float(price[1:].strip())
+    return price, title
