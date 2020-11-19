@@ -85,7 +85,7 @@ def makro_data(url):
 
 def game_data(url):
     '''
-    This function extract the data from Makro website
+    This function extract the data from Game website
     args:
     url: Webpage link
     '''
@@ -106,3 +106,35 @@ def game_data(url):
     price = price.strip().strip('.00').replace(',','')
     price = float(price[1:].strip())
     return price, title
+
+
+def checkPrice():
+    '''
+    This function will compare the current price with the orignal price
+    output:
+    This function will send an email whenvere the price droped
+    '''
+    print(URL)
+    if 'takealot' in URL:
+        conv_price, title = takealot_data(URL)
+    elif 'makro' in URL:
+        conv_price, title = makro_data(URL)
+    elif 'game.c' in URL:
+        conv_price, title = game_data(URL)
+    else:
+        print("Sorry! This website is not supported yet")
+
+    print("Checking price for " + title.strip())
+
+    # conv_price = float(price[1:].strip())
+    print("Original Price {}\n Current Price: {}".format(origPrice, conv_price))
+
+    if(conv_price < origPrice):
+        #send email
+        sendMail(title.strip(), URL,origPrice,conv_price)
+        print("Price dropped!")
+    elif(conv_price > origPrice):
+        print("price get higher")
+
+    else:
+        print("No difference")
