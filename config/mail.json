@@ -1,12 +1,11 @@
 {
-    "sender_email":[{
+    "sender_email":{
         "email": "trackersales12@gmail.com",
         "password": "Boona1234"
     }
-    ],
-    "recipient_email":[
+    ,
+    "recipient_email":
         {
             "email": "abshabat@gmail.com"
         }
-    ]
 }

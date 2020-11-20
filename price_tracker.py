@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-
+import json
+import pandas as pd
 
 # list to store the links and the current price
-items = []
 driver = webdriver.Chrome()
 
 
@@ -55,6 +55,8 @@ def takealot_data(url):
     
     price = soup.find('span', class_='currency plus currency-module_currency_29IIm').get_text()
     title = soup.find('div', class_='product-title').get_text().strip()
+    if ',' in price:
+        price = price.replace(',','')
 
     price = float(price[1:].strip())
     return price, title
@@ -138,3 +140,32 @@ def checkPrice():
 
     else:
         print("No difference")
+
+
+while True:
+    # You can change the sender and recipent email from mail.json file
+    conf = open('config/mail.json')
+    data = json.load(conf)
+
+
+    # website = input('Enter the item link: [game, makro, takealot]:')
+    # current_price = float(input('Enter the curent price: '))
+    # item =[website, current_price]
+    # items.append(item)
+
+    sender_email = data['sender_email']['email']
+    password = data['sender_email']['password']
+    recipient = data['recipient_email']['email']
+    items = pd.read_csv('data/items_details.csv')
+
+    for i in range(0,len(items["url"])):
+        URL = items["url"][i]
+        origPrice = items["price"][i]
+        checkPrice()
+    time.sleep(600)
+
+    # for i in items:
+    #     URL = i[0]
+    #     origPrice = i[1]
+    #     checkPrice()
+    # time.sleep(600)
