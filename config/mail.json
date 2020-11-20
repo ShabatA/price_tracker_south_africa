@@ -1,7 +1,7 @@
 {
     "sender_email":{
-        "email": "trackersales12@gmail.com",
-        "password": "Boona1234"
+        "email": "sender_email@email.com",
+        "password": "email_password"
     }
     ,
     "recipient_email":
