@@ -12,6 +12,7 @@ notification email to tell you if the prices fell down.
 
 ## Here's how it works:
 1. Install the required packages.
+
 ``` pip Install requests bs4 selenium pandas smtplib```
 
 2. Modify the excel sheet by adding the urls and Tracking Price for an item. The file located in `data/items_details.csv`.
