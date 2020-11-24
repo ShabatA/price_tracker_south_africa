@@ -19,7 +19,7 @@ notification email to tell you if the prices fell down.
 
 3. Edit the sender and recipient email in `mail.json` file which exist in the `config` folder.
 * Sender Email: To be able to receive an email from the app you need to have a sender email.
-* recipient Email: This email will be the receiver.
+* recipient Email: This email will be the receiver. You need to have two emails on for sending the notification and the other one for receiving. You could create a Gmail account for the sender email just for this app and the recipient email could be any of your person email.
 
 4. run the following command:
 
